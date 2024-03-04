@@ -1,0 +1,5 @@
+@import './global/global.css';
+
+@import './Home/home.css';
+@import './Login/login.css';
+@import './Cadastro/cadastro.css';
