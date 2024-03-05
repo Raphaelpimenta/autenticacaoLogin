@@ -10,11 +10,15 @@ export const AuthProvider = ({ children }) => {
         const userToken = localStorage.getItem("user_token");
         const userStorage = localStorage.getItem("users_bd");
 
-        console.log("userToken", userToken)
-        console.log("userStorage", userStorage)
+        // console.log("userToken", userToken)
+        // console.log("userStorage", userStorage)
 
         if(userToken && userStorage) {
-            const temUsuario = JSON.parse(userStorage)?.filter((user) => {
+            // const temUsuario = JSON.parse(userStorage)?.filter((user) => {
+            //     user.email === JSON.parse(userToken).email
+            // });
+
+            const temUsuario = JSON.parse(userStorage)?.find((user) => {
                 user.email === JSON.parse(userToken).email
             });
     
@@ -37,27 +41,40 @@ export const AuthProvider = ({ children }) => {
             user.email === email
         });
 
-        console.log(temUsuario)
+        // console.log(temUsuario)
+        const tokenFalso = Math.random().toString(36).substring(2);
+        const x = localStorage.setItem("user_token", JSON.stringify({ email, tokenFalso }));
+        console.log(tokenFalso)
 
         if(temUsuario?.length) {
+
             if(temUsuario.email === email && temUsuario.password === password){
-                const tokenFalso = Math.random().toString(36).substring(2);
-                localStorage.setItem("user_token", JSON.stringify({ email, tokenFalso }));
+                // const tokenFalso = Math.random().toString(36).substring(2);
+                // const x = localStorage.setItem("user_token", JSON.stringify({ email, tokenFalso }));
                 setUser({ email, password });
+                console.log(x)
                 return;
+                
             } else {
                 return "E-mail ou senha incorretos";
             }
         } else {
+            
             return "Usuário não cadastrado";
         }
+
+        
     };
 
     //Cadastro
     const cadastro = (email, password) => {
         const userStorage = JSON.parse(localStorage.getItem("users_bd"));
 
-        const temUsuario = userStorage?.filter((user) => {
+        // const temUsuario = userStorage?.filter((user) => {
+        //     user.email === email;
+        // });
+
+        const temUsuario = userStorage?.find((user) => {
             user.email === email;
         });
 
