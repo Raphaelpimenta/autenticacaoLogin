@@ -14,13 +14,13 @@ export const AuthProvider = ({ children }) => {
         // console.log("userStorage", userStorage)
 
         if(userToken && userStorage) {
-            // const temUsuario = JSON.parse(userStorage)?.filter((user) => {
-            //     user.email === JSON.parse(userToken).email
-            // });
-
-            const temUsuario = JSON.parse(userStorage)?.find((user) => {
+            const temUsuario = JSON.parse(userStorage)?.filter((user) => {
                 user.email === JSON.parse(userToken).email
             });
+
+            // const temUsuario = JSON.parse(userStorage)?.find((user) => {
+            //     user.email === JSON.parse(userToken).email
+            // });
     
             if(temUsuario) {
                 setUser(temUsuario[0]);
@@ -41,10 +41,10 @@ export const AuthProvider = ({ children }) => {
             user.email === email
         });
 
-        // console.log(temUsuario)
+        console.log(temUsuario)
         const tokenFalso = Math.random().toString(36).substring(2);
-        const x = localStorage.setItem("user_token", JSON.stringify({ email, tokenFalso }));
-        console.log(tokenFalso)
+        const x = localStorage.getItem("user_token", JSON.stringify({ email, tokenFalso }));
+        console.log(tokenFalso, x)
 
         if(temUsuario?.length) {
 
@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }) => {
                 // const tokenFalso = Math.random().toString(36).substring(2);
                 // const x = localStorage.setItem("user_token", JSON.stringify({ email, tokenFalso }));
                 setUser({ email, password });
-                console.log(x)
                 return;
                 
             } else {
